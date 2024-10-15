@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://example.com/FirstTask/service"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             name="TcSoapService"
+             targetNamespace="http://example.com/FirstTask/service">
+
+    <types>
+        <xsd:schema targetNamespace="http://example.com/FirstTask/service">
+            <xsd:element name="tcnodogrulaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="tc" type="xsd:long"/>
+                        <xsd:element name="ad" type="xsd:string"/>
+                        <xsd:element name="soyad" type="xsd:string"/>
+                        <xsd:element name="dogumyili" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="tcnodogrulaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="xsd:boolean"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <message name="tcnodogrulaRequest">
+        <part name="parameters" element="tns:tcnodogrulaRequest"/>
+    </message>
+    <message name="tcnodogrulaResponse">
+        <part name="parameters" element="tns:tcnodogrulaResponse"/>
+    </message>
+
+    <portType name="TcSoapServicePortType">
+        <operation name="tcnodogrula">
+            <input message="tns:tcnodogrulaRequest"/>
+            <output message="tns:tcnodogrulaResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="TcSoapServiceSoapBinding" type="tns:TcSoapServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="tcnodogrula">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="TcSoapService">
+        <documentation>SOAP Service for TC Verification</documentation>
+        <port name="TcSoapServicePort" binding="tns:TcSoapServiceSoapBinding">
+            <soap:address location="http://localhost:8080/ws"/>
+        </port>
+    </service>
+</definitions>
